@@ -6,7 +6,7 @@ import (
 )
 
 type elm struct {
-	val  interface{}
+	val  int
 	next *elm
 }
 
@@ -16,7 +16,7 @@ type SingleLinklist struct {
 	tail *elm
 }
 
-func (s *SingleLinklist) InsertFront(val interface{}) {
+func (s *SingleLinklist) InsertFront(val int) {
 	l := &elm{
 		val: val,
 	}
@@ -30,7 +30,7 @@ func (s *SingleLinklist) InsertFront(val interface{}) {
 	s.len++
 }
 
-func (s *SingleLinklist) InsertBack(val interface{}) {
+func (s *SingleLinklist) InsertBack(val int) {
 	l := &elm{
 		val: val,
 	}
@@ -47,7 +47,7 @@ func (s *SingleLinklist) InsertBack(val interface{}) {
 }
 
 // InsertBefore insert before found value InsertBefore(value, before interface{})
-func (s *SingleLinklist) InsertBefore(val, before interface{}) {
+func (s *SingleLinklist) InsertBefore(val, before int) {
 
 	l := &elm{
 		val: val,
@@ -72,7 +72,7 @@ func (s *SingleLinklist) InsertBefore(val, before interface{}) {
 }
 
 // InsertAfter insert after found value InsertAfter(value, after interface{})
-func (s *SingleLinklist) InsertAfter(val, after interface{}) {
+func (s *SingleLinklist) InsertAfter(val, after int) {
 
 	l := &elm{
 		val: val,
