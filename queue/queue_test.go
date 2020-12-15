@@ -6,6 +6,7 @@ import (
 )
 
 func TestQueue(t *testing.T) {
+	t.Parallel()
 	t.Run("success enqueue and dequeue", func(t *testing.T) {
 		q := queue.NewQueue(2)
 		_ = q.EnQueue(1)
