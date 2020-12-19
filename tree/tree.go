@@ -73,6 +73,31 @@ func (t *Tree) PreOrder(root *node) {
 	}
 }
 
+func (t *Tree) IsFullTree(root *node) bool {
+	if root == nil {
+		return true
+	}
+
+	if root.leftNode == nil && root.rightNode == nil {
+		return true
+	}
+
+	if root.leftNode != nil && root.rightNode != nil {
+		return t.IsFullTree(root.leftNode) && t.IsFullTree(root.rightNode)
+	}
+
+	return false
+}
+
+func (t *Tree) GetRoot() *node {
+	return t.rootNode
+}
+
+func (t *Tree) GetValue(root *node) int {
+	return root.value
+}
+
+
 // NewTree for new tree data structure
 func NewTree() *Tree {
 	return &Tree{}
