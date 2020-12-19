@@ -78,6 +78,3 @@ func TestInsertLeftNode(t *testing.T) {
 		t.Error("expect value of right node equal 8")
 	}
 }
-
-func TestInsertNode(t *testing.T) {
-}

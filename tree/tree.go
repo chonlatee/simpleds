@@ -1,7 +1,12 @@
 package tree
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type node struct {
-	value     int32
+	value     int
 	rightNode *node
 	leftNode  *node
 }
@@ -11,7 +16,7 @@ type Tree struct {
 	rootNode *node
 }
 
-func (t *Tree) Insert(value int32) error {
+func (t *Tree) Insert(value int) error {
 	n := &node{
 		value: value,
 	}
@@ -34,7 +39,7 @@ func (t *Tree) Insert(value int32) error {
 			break
 		}
 
-		if value >= currentNode.rightNode.value {
+		if value >= currentNode.value {
 			currentNode = currentNode.rightNode
 		} else {
 			currentNode = currentNode.leftNode
@@ -44,16 +49,28 @@ func (t *Tree) Insert(value int32) error {
 	return nil
 }
 
-func (t *Tree) PreOrderTraversal() {
-
+func (t *Tree) InOrder(root *node) {
+	if root  != nil {
+		t.InOrder(root.leftNode)
+		fmt.Printf(strconv.Itoa(root.value) + " -> ")
+		t.InOrder(root.rightNode)
+	}
 }
 
-func (t *Tree) PostOrderTraversal() {
-
+func (t *Tree) PostOrder(root *node) {
+	if root != nil {
+		t.PostOrder(root.leftNode)
+		t.PostOrder(root.rightNode)
+		fmt.Printf(strconv.Itoa(root.value) + " -> ")
+	}
 }
 
-func (t *Tree) InOrderTraversal() {
-
+func (t *Tree) PreOrder(root *node) {
+	if root != nil {
+		fmt.Printf(strconv.Itoa(root.value) + " -> ")
+		t.PreOrder(root.leftNode)
+		t.PreOrder(root.rightNode)
+	}
 }
 
 // NewTree for new tree data structure
