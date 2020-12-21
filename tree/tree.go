@@ -2,6 +2,7 @@ package tree
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -11,7 +12,11 @@ type node struct {
 	leftNode  *node
 }
 
-// Tree struct for tree datastructure
+type nodeHeight struct {
+	height int
+}
+
+// Tree struct for tree data structure
 type Tree struct {
 	rootNode *node
 }
@@ -47,6 +52,31 @@ func (t *Tree) Insert(value int) error {
 	}
 
 	return nil
+}
+
+func (t *Tree) InsertLeft(parent, new int) {
+	n := t.GetNodeByValue(parent)
+	if n == nil {
+		log.Fatalln("node is nil")
+		return
+	}
+	if n.leftNode != nil {
+		return
+	}
+
+	n.leftNode = &node{value: new}
+}
+
+func (t *Tree) InsertRight(parent, new int) {
+	n := t.GetNodeByValue(parent)
+	if n == nil {
+		log.Fatalln("node is nil")
+		return
+	}
+	if n.rightNode != nil {
+		return
+	}
+	n.rightNode = &node{value: new}
 }
 
 func (t *Tree) InOrder(root *node) {
@@ -89,6 +119,14 @@ func (t *Tree) IsFullTree(root *node) bool {
 	return false
 }
 
+func (t *Tree) IsBalance(root *node) bool {
+	if root == nil {
+		return true
+	}
+
+	return false
+}
+
 func (t *Tree) GetRoot() *node {
 	return t.rootNode
 }
@@ -96,6 +134,29 @@ func (t *Tree) GetRoot() *node {
 func (t *Tree) GetValue(root *node) int {
 	return root.value
 }
+
+func (t *Tree) GetNodeByValue(val int) *node {
+	st := make([]*node, 0)
+	st = append(st, t.rootNode) // stack.push()
+	for len(st) != 0 {
+		n := st[len(st) - 1] // stack.peek()
+		st = st[:len(st) - 1] // stack.pop()
+
+		if n == nil {
+			continue
+		}
+
+		if n.value == val {
+			return n
+		}
+
+		st = append(st, n.rightNode) // stack.push()
+		st = append(st, n.leftNode) // stack.push()
+	}
+
+	return nil
+}
+
 
 
 // NewTree for new tree data structure
