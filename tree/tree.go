@@ -12,10 +12,6 @@ type node struct {
 	leftNode  *node
 }
 
-type nodeHeight struct {
-	height int
-}
-
 // Tree struct for tree data structure
 type Tree struct {
 	rootNode *node
@@ -119,12 +115,8 @@ func (t *Tree) IsFullTree(root *node) bool {
 	return false
 }
 
-func (t *Tree) IsBalance(root *node) bool {
-	if root == nil {
-		return true
-	}
-
-	return false
+func (t *Tree) IsBalance() bool {
+	return maxDept(t.rootNode) - minDept(t.rootNode)  <= 1
 }
 
 func (t *Tree) GetRoot() *node {
@@ -155,6 +147,35 @@ func (t *Tree) GetNodeByValue(val int) *node {
 	}
 
 	return nil
+}
+
+func minDept(root *node)  int {
+	if root == nil {
+		return 0
+	}
+	return 1 + min(minDept(root.leftNode), minDept(root.rightNode))
+}
+
+func maxDept(root *node) int {
+	if root == nil {
+		return 0
+	}
+
+	return 1 + max(maxDept(root.leftNode), maxDept(root.rightNode))
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 

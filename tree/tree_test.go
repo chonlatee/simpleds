@@ -64,6 +64,29 @@ func TestTree_IsFullTree(t *testing.T) {
 	})
 }
 
+func TestTree_IsBalance(t *testing.T) {
+	t.Run("tree is balance", func(tt *testing.T) {
+		tr := tree.NewTree()
+		err := tr.Insert(100)
+		shouldBeNil(err, t)
+		tr.InsertLeft(100, 50)
+		tr.InsertRight(100, 150)
+		tr.InsertLeft(50, 40)
+		tr.InsertRight(50, 60)
+		tr.InsertLeft(150, 145)
+		tr.InsertRight(150, 160)
+
+		r := tr.IsBalance()
+		if !r {
+			t.Errorf("expect tree is balance is true but got %t",r )
+		}
+	})
+
+	t.Run("tree is not balance", func(tt *testing.T) {
+
+	})
+}
+
 func shouldBeNil(err error, t *testing.T) {
 	if err != nil {
 		t.Errorf("expect error is nil but got %+v", err)
