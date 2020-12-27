@@ -2,6 +2,7 @@ package bst
 
 import (
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -47,8 +48,53 @@ func (t *Tree) Insert(data int) {
 	}
 }
 
-func (t *Tree) Delete(data int) {
+func (t *Tree) InsertRec() {
 
+}
+
+func (t *Tree) InorderRec() {
+
+}
+
+func (t *Tree) Delete(data int) {
+	if t.root == nil {
+		return
+	}
+
+	currentNode := t.root
+	for currentNode != nil {
+		if data < currentNode.value {
+			currentNode = currentNode.leftNode
+			continue
+		} else if data > currentNode.value {
+			currentNode = currentNode.rightNode
+			continue
+		} else {
+			if currentNode.leftNode == nil && currentNode.rightNode == nil {
+				currentNode = nil
+				break
+			} else if currentNode.leftNode == nil {
+				currentNode = currentNode.rightNode
+				break
+			} else if currentNode.rightNode == nil {
+				currentNode = currentNode.leftNode
+				break
+			} else {
+
+			}
+		}
+	}
+}
+
+func (t *Tree) minNode(root *node) int {
+	if t.root == nil {
+		return math.MaxInt64
+	}
+
+	for root.leftNode != nil {
+		return t.minNode(root.leftNode)
+	}
+	return root.value
 }
 
 func (t *Tree) Inorder() string {
